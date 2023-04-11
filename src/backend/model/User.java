@@ -18,6 +18,7 @@ public class User {
         this.password = password;
     }
 
+
     public String getId() {
         return id;
     }
@@ -35,6 +36,7 @@ public class User {
     }
 
     public String getUsername() {
+
         return username;
     }
 

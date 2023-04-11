@@ -5,6 +5,7 @@ import backend.model.User;
 import backend.payload.ChatRecord;
 import backend.payload.MessageRecord;
 import backend.payload.UserRecord;
+import com.sun.security.auth.UserPrincipal;
 
 import java.util.List;
 import java.util.Random;
@@ -91,6 +92,9 @@ public class FrontUI {
         String setng = getConsole("Select =>");
         switch (setng) {
             case "1" -> {
+                String oldName = getConsole("oldName: ");
+
+                    String newName = getConsole("new name: ");
 
             }
 
