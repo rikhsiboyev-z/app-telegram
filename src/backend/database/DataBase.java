@@ -32,4 +32,13 @@ public class DataBase {
         }
         return null;
     }
+
+    public static Message findMessageById(String id) {
+        for (Message message : messageList) {
+            if (message.getId().equals(id))
+                return message;
+        }
+        return null;
+    }
+
 }

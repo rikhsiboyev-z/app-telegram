@@ -10,4 +10,7 @@ public interface MessageController {
     List<MessageRecord> getAllMessagesByChatId(String id);
 
     void add(MessageRecord messageRecord);
+    void edit(String id, String nexText);
+    void delet(String id);
+
 }

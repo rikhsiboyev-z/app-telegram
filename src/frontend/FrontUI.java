@@ -89,7 +89,7 @@ public class FrontUI {
     private static void settings() {
         setingMenu();
         String setng = getConsole("Select =>");
-        switch (setng){
+        switch (setng) {
             case "1" -> {
 
             }
@@ -147,8 +147,8 @@ public class FrontUI {
 
         switch (messageOption) {
             case "1" -> sendMessage(chatRecord);
-            case "2" -> editMessage(chatRecord);
-            case "3" -> deleteMessage(chatRecord);
+            case "2" -> editMessage(chatRecord, allMessages);
+            case "3" -> deleteMessage(chatRecord, allMessages);
             case "q" -> {
                 return;
             }
@@ -157,10 +157,25 @@ public class FrontUI {
         chatting(chatRecord);
     }
 
-    private static void deleteMessage(ChatRecord chatRecord) {
+    private static void deleteMessage(ChatRecord chatRecord, List<MessageRecord> allMessages) {
+        String number = getConsole("Select Message Number to delet");
+        MessageRecord messageRecord = allMessages.get(Integer.parseInt(number) - 1);
+
+        messageController.delet(messageRecord.id());
+
+
     }
 
-    private static void editMessage(ChatRecord chatRecord) {
+    private static void editMessage(ChatRecord chatRecord, List<MessageRecord> allMessages) {
+
+
+        String number = getConsole("Select Message Number to edit");
+
+        MessageRecord messageRecord = allMessages.get(Integer.parseInt(number) - 1);
+
+        String nexText = getConsole("Enter New Text to replace");
+
+        messageController.edit(messageRecord.id(), nexText);
 
     }
 
