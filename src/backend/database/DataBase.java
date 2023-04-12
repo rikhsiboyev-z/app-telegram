@@ -41,4 +41,19 @@ public class DataBase {
         return null;
     }
 
+    public static Chat findChatById(String id) {
+        for (Chat chat : chatList) {
+            if (chat.getId().equals(id))
+                return chat;
+        }
+        return null;
+    }
+
+    public static Message findMessageByChatId(String id) {
+        for (Message message : messageList) {
+            if (message.getChat().equals(id))
+                return message;
+        }
+        return null;
+    }
 }

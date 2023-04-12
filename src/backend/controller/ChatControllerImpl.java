@@ -2,6 +2,7 @@ package backend.controller;
 
 import backend.database.DataBase;
 import backend.model.Chat;
+import backend.model.Message;
 import backend.model.User;
 import backend.payload.ChatRecord;
 
@@ -30,6 +31,15 @@ public class ChatControllerImpl implements ChatController{
         User secondSide = DataBase.findUserById(chatRecord.secondSide().id());
         Chat chat = new Chat(chatRecord.id(), firstSide, secondSide);
         DataBase.chatList.add(chat);
+    }
+
+    @Override
+    public void deleteChat(String id) {
+            Chat chat = DataBase.findChatById(id);
+            Message message = DataBase.findMessageByChatId(id);
+            DataBase.messageList.remove(message);
+            DataBase.chatList.remove(chat);
+
     }
 
 

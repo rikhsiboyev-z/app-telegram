@@ -1,6 +1,8 @@
 package frontend;
 
 import backend.controller.*;
+import backend.database.DataBase;
+import backend.model.Message;
 import backend.model.User;
 import backend.payload.ChatRecord;
 import backend.payload.MessageRecord;
@@ -18,7 +20,7 @@ public class FrontUI {
     static UserController userController = new UserControllerImpl();
     static ChatController chatController = new ChatControllerImpl();
     static MessageController messageController = new MessageControllerImpl();
-    static UserRecord currentUser = null;
+    static UserRecord currentUser;
 
     public static void main(String[] args) {
 
@@ -85,6 +87,20 @@ public class FrontUI {
     }
 
     private static void deleteChat() {
+
+            List<ChatRecord> allChat = chatController.getAllChatsByUserId(currentUser.id());
+            for (int i = 0; i < allChat.size(); i++) {
+                ChatRecord chatRecord = allChat.get(i);
+                if (chatRecord.firstSide().id().equals(currentUser.id()))
+                    System.out.println((i + 1) + "\uD83D\uDCDD => " + chatRecord.secondSide());
+                else
+                    System.out.println((i + 1) + "\uD83D\uDCDD => " + chatRecord.firstSide());
+            }
+            String number = getConsole("Select chat number for deleted => ");
+            ChatRecord chatRecord = allChat.get(Integer.parseInt(number) - 1);
+            chatController.deleteChat(chatRecord.id());
+            System.out.println("Chat deleted");
+
     }
 
     private static void settings() {
@@ -161,14 +177,19 @@ public class FrontUI {
         chatting(chatRecord);
     }
 
-    private static void deleteMessage(ChatRecord chatRecord, List<MessageRecord> allMessages) {
-        String number = getConsole("Select Message Number to delet");
-        MessageRecord messageRecord = allMessages.get(Integer.parseInt(number) - 1);
-
-        messageController.delet(messageRecord.id());
 
 
-    }
+        private static void deleteMessage(ChatRecord chatRecord, List<MessageRecord> allMessage) {
+            String number = getConsole("Select message number for delete => ");
+            MessageRecord messageRecord = allMessage.get(Integer.parseInt(number) - 1);
+            Message message = DataBase.findMessageById(messageRecord.id());
+            if (message.getSenderId().equals(currentUser.id())) {
+                messageController.delet(messageRecord.id());
+            } else
+                System.out.println("⛔️ This message is not your message");
+        }
+
+
 
     private static void editMessage(ChatRecord chatRecord, List<MessageRecord> allMessages) {
 

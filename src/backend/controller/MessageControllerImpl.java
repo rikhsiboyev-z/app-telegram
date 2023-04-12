@@ -41,6 +41,9 @@ public class MessageControllerImpl implements MessageController {
     @Override
     public void delet(String id) {
 
+        Message message = DataBase.findMessageById(id);
+        DataBase.messageList.remove(message);
+
 
     }
 }

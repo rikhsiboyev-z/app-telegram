@@ -44,4 +44,6 @@ public class Message {
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
+
+
 }

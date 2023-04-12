@@ -9,4 +9,5 @@ public interface ChatController {
     List<ChatRecord> getAllChatsByUserId(String userId);
 
     void add(ChatRecord chatRecord);
+    void deleteChat(String id);
 }
